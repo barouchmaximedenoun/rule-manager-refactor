@@ -24,7 +24,7 @@ export default function App() {
   }, [currentPage, loadPage]);
 
   return (
-    <>
+  <div className="m-8">
     <div>
       <h1>Security Rules Manager</h1>
       {error && <div style={{ color: "red" }}>{error}</div>}
@@ -49,27 +49,30 @@ export default function App() {
         onDeleteRule={handleDeleteRule}
         onMoveRule={handleMoveRule}
       />
-        <div className="mt-4 space-x-2"><div className="mt-2">
-          <label>
-            Rules per page:{" "}
-            <select
-              value={pageSize}
-              onChange={(e) => setPageSize(Number(e.target.value))}
-              className="ml-2 p-1 border rounded"
-            >
-              {[10, 25, 50, 100].map((n) => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </select>
-          </label>
+      <div className="mt-4 flex justify-between">
+          <div className="mt-2">
+            <label>
+              Rules per page:{" "}
+              <select
+                value={pageSize}
+                onChange={(e) => setPageSize(Number(e.target.value))}
+                className="ml-2 p-1 border rounded"
+              >
+                {[10, 25, 50, 100].map((n) => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+        <div>
+          <Button onClick={handlePrevPage} disabled={currentPage === 1 || hasPendingChanges()}>
+            Previous Page
+          </Button>
+          <span> Page {currentPage} </span>
+          <Button onClick={handleNextPage} disabled={hasPendingChanges()}>
+            Next Page
+          </Button>
         </div>
-        <Button onClick={handlePrevPage} disabled={currentPage === 1 || hasPendingChanges()}>
-          Previous Page
-        </Button>
-        <span> Page {currentPage} </span>
-        <Button onClick={handleNextPage} disabled={hasPendingChanges()}>
-          Next Page
-        </Button>
       </div>
 
       <RuleDialog
@@ -86,6 +89,6 @@ export default function App() {
       />
     </div>
     <Toaster />
-    </>
+  </div>
   );
 }
