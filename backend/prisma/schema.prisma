@@ -32,3 +32,4 @@ model Destination {
   rule    Rule?  @relation(fields: [ruleId], references: [id])
   ruleId  String?
 }
+npx prisma generate
